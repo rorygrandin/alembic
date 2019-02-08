@@ -283,8 +283,7 @@ def _make_index(params: Dict[str, Any], conn_table: "Table") -> "Index":
     ix = sa_schema.Index(
         params["name"],
         *[conn_table.c[cname] for cname in params["column_names"]],
-        unique=params["unique"],
-        _table=conn_table,
+        _table=conn_table, **dict(list(params.get("dialect_options", {}).items()) + [('unique', params["unique"])])
     )
     if "duplicates_constraint" in params:
         ix.info["duplicates_constraint"] = params["duplicates_constraint"]
