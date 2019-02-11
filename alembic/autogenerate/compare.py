@@ -820,7 +820,7 @@ def _compare_indexes_and_uniques(
                 if conn_included_columns:
                     metadata_included_columns = tuple(sorted(metadata_obj.const.dialect_options.get('mssql', {}).get('include', None) or []))
                     conn_included_columns = tuple(sorted(conn_included_columns))
-                    if conn_obj.sig != metadata_obj.sig:
+                    if conn_included_columns != metadata_included_columns:
                         msg.append(
                             " MSSQL included columns %r to %r" % (metadata_included_columns, conn_included_columns)
                         )
