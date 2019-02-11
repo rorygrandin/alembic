@@ -437,10 +437,7 @@ class _ix_constraint_sig(_constraint_sig):
     def __init__(self, const: "Index") -> None:
         self.const = const
         self.name = const.name
-        colnames = [col.name for col in const.columns]
-        if 'mssql' in const.dialect_options:
-            colnames.extend(const.dialect_options['mssql'].get('include', None) or [])
-        self.sig = tuple(sorted(colnames))
+        self.sig = tuple(sorted([col.name for col in const.columns]))
         self.is_unique = bool(const.unique)
 
     def md_name_to_sql_name(self, context: "AutogenContext") -> Optional[str]:
